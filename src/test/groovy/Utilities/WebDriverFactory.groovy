@@ -48,6 +48,7 @@ public class WebDriverFactory {
         String deviceName = System.getenv("DEVICE_NAME") != null ? System.getenv("DEVICE_NAME") : null;
         String deviceOrientation = System.getenv("DEVICE_ORIENTATION") != null ? System.getenv("DEVICE_ORIENTATION") : null;
         String buildTag = System.getenv("BAMBOO_BUILDNUMBER") != null ? System.getenv("BAMBOO_BUILDNUMBER") : null;
+        System.out.println("Build tag: " + buildTag);
         String seHost = System.getenv("SELENIUM_HOST") != null ? System.getenv("SELENIUM_HOST") : "ondemand.saucelabs.com";
         String sePort = "80";
         if (seHost != "ondemand.saucelabs.com") {
