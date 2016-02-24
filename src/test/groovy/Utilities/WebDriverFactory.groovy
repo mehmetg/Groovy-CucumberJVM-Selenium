@@ -61,6 +61,8 @@ public class WebDriverFactory {
 
         capabilities.setCapability(CapabilityType.PLATFORM, os);
         capabilities.setCapability('name', testName);
+        System.out.println("http://" + authentication.getUsername() + ":" + authentication.getAccessKey() +
+                "@" + seHost + ":" + sePort + "/wd/hub");
         WebDriver driver = new RemoteWebDriver(
                 new URL("http://" + authentication.getUsername() + ":" + authentication.getAccessKey() +
                         "@" + seHost + ":" + sePort + "/wd/hub"),
@@ -85,6 +87,6 @@ public class WebDriverFactory {
         }
         jobInfo.put('passed', result);
         getSauceRESTClient().updateJobInfo(sessionId, jobInfo);
-        
+
    }
 }
