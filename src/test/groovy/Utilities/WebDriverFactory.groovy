@@ -47,7 +47,10 @@ public class WebDriverFactory {
         //The null check is quite pointless, but will keep here just in case getenv is returning "" not null
         String deviceName = System.getenv("DEVICE_NAME") != null ? System.getenv("DEVICE_NAME") : null;
         String deviceOrientation = System.getenv("DEVICE_ORIENTATION") != null ? System.getenv("DEVICE_ORIENTATION") : null;
-        String buildTag = System.getenv("BUILD_TAG") != null ? System.getenv("BUILD_TAG") : null;
+        String buildTag = System.getenv("BAMBOO_BUILDNUMBER") != null ? System.getenv("BAMBOO_BUILDNUMBER") : null;
+        String seHost = System.getenv("SELENIUM_HOST") != null ? System.getenv("SELENIUM_HOST") : "ondemand.saucelabs.com";
+        String sePort = System.getenv("SELENIUM_PORT") != null ? System.getenv("SELENIUM_PORT") : "80";
+
         DesiredCapabilities capabilities = new DesiredCapabilities();
 
         if (browser != null) capabilities.setCapability(CapabilityType.BROWSER_NAME, browser);
@@ -60,7 +63,7 @@ public class WebDriverFactory {
         capabilities.setCapability('name', testName);
         WebDriver driver = new RemoteWebDriver(
                 new URL("http://" + authentication.getUsername() + ":" + authentication.getAccessKey() +
-                        "@ondemand.saucelabs.com:80/wd/hub"),
+                        "@" + seHost + ":" + sePort + "/wd/hub"),
                 capabilities);
         return driver;
     }
@@ -82,5 +85,6 @@ public class WebDriverFactory {
         }
         jobInfo.put('passed', result);
         getSauceRESTClient().updateJobInfo(sessionId, jobInfo);
+        
    }
 }
